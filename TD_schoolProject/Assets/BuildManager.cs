@@ -25,9 +25,6 @@ public class BuildManager : MonoBehaviour
     
     public void SetSelectedTurret(int _selectedTurret)
     {
-        if (CurrencyManager.Main.SpendCurrency(turrets[_selectedTurret].cost))
-        {
-            selectedTurret = _selectedTurret;
-        }
+        selectedTurret = _selectedTurret;
     }
 }

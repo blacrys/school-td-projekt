@@ -24,6 +24,12 @@ public class BuldingManager: MonoBehaviour
             var tile = Map.GetTile(gridPosition);
             if (tile == PlatformTile)
             {
+                if(turretToBuild.cost > CurrencyManager.Main.currency)
+                {
+                    Debug.Log("You do not have enough money!");
+                    return;
+                }
+                CurrencyManager.Main.SpendCurrency(turretToBuild.cost);
                 var tilePosition = Map.GetCellCenterWorld(gridPosition);
                 var turretPosition = tilePosition - new Vector3(0.125f, 0.125f, 0.1f);
                 Instantiate(turretToBuild.prefab, turretPosition, Quaternion.identity);
