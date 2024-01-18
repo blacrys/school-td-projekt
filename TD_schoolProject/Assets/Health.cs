@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class Health : MonoBehaviour
     [SerializeField] private float hitPoints = 5;
     [SerializeField] private int currencyValue = 10;
     
+
     public void TakeDamage(float damage)
     {
         hitPoints -= damage;

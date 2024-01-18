@@ -12,7 +12,7 @@ public class SlowmoShooting : MonoBehaviour
     
     private float timeSinceLastFire;
     
-    private void Update()
+    private void FixedUpdate()
     { 
             timeSinceLastFire += Time.deltaTime;
             if (timeSinceLastFire >= 1f / fireRate)
@@ -34,7 +34,7 @@ public class SlowmoShooting : MonoBehaviour
                 RaycastHit2D hit = hits[i];
                 
                 EnemyMovement enemyMovement = hit.transform.GetComponent<EnemyMovement>();
-                enemyMovement.UpdateSpeed(0.5f); 
+                enemyMovement.UpdateSpeed(0.25f); 
                 
                 StartCoroutine(ResetEnemySpeed(enemyMovement));
             }
