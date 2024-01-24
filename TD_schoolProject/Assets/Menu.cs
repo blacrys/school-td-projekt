@@ -7,6 +7,7 @@ using TMPro;
 public class Menu : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] TextMeshProUGUI waveUI;
     [SerializeField] TextMeshProUGUI currencyUI;
     [SerializeField] Animator anim;
 
@@ -21,9 +22,6 @@ public class Menu : MonoBehaviour
     private void OnGUI()
     {
         currencyUI.text = CurrencyManager.Main.currency.ToString();
+        waveUI.text = "Wave " + EnemySpawner.Main.currentWave.ToString();
     }
-}
-
-internal class Animatior
-{
 }

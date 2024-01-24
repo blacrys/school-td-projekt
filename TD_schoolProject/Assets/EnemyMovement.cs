@@ -32,6 +32,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 EnemySpawner.OnEnemyDestroyed.Invoke();
                 Destroy(gameObject);
+                HpCounter.main.RemoveLife();
                 return;
             }
             else

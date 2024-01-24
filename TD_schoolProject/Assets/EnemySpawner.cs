@@ -20,13 +20,15 @@ public class EnemySpawner : MonoBehaviour
     
     [Header("Events")]
     public static UnityEvent OnEnemyDestroyed = new UnityEvent() ;
-    
-    private int currentWave = 1;
+
+    public int currentWave = 1;
     private float timeSinceLastSpawn;
     private int enemiesAlive;
     private int enemiesToSpawn;
     private float eps; //enemy per second
     private bool isSpawning = false;
+    
+    public static EnemySpawner Main;
     
     private void Awake()
     {
@@ -36,6 +38,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         StartCoroutine(StartWave());
+        Main = GetComponent<EnemySpawner>();
     }
     
     private void Update()
@@ -52,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
             timeSinceLastSpawn = 0f;
         }
         
-        if (enemiesToSpawn == 0 && enemiesAlive == 0)
+        if (enemiesToSpawn == 0 && enemiesAlive <= 0)
         {
             EndWave();
         }
@@ -61,8 +64,8 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy() 
     {
         int index = UnityEngine.Random.Range(0, enemyPrefabs.Length);
+        (enemyPrefabs[index].GetComponent<Health>()).UpgradeHealth(currentWave, dificultyMultiplier);
         Instantiate(enemyPrefabs[index], startPoint.position, Quaternion.identity);
-
     }
 
     private void EnemyDestroyed()
@@ -75,8 +78,8 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenWaves);
         
         isSpawning = true;
-        enemiesToSpawn = EnemiesPerWave(); 
-        eps = EnemiesPerSecond();
+        enemiesToSpawn = EnemiesPerWave();
+        eps = spawnRate;
     }
     
     private void EndWave()
